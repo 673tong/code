@@ -68,7 +68,7 @@ lcd $datapath
 prompt
 mput ${table}${backtime}.tar.bz2  ${table}${backtime}.tar.bz2
 mput ${table}web${backtime}.tar.bz2  ${table}web${backtime}.tar.bz2
-mdelete ${table}${deldate}.tar.bz2  ${table}${deldate}.tar.bz2
-mdelete ${table}web${deldate}.tar.bz2  ${table}web${deldate}.tar.bz2
+mdelete ${table}${deldate}.tar.bz2
+mdelete ${table}web${deldate}.tar.bz2
 close
 bye !
