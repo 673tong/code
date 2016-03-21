@@ -1,8 +1,8 @@
 #!/bin/bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 export PATH
-# echo "服务器提供商（如果你希望分享测试结果建议填写，也可以直接回车忽略这个步骤）"
-# read hostp
+echo "服务器提供商（如果你希望分享测试结果建议填写，也可以直接回车忽略这个步骤）"
+read hostp
 #===============================以下是各类要用到的函数========================================
 #teddey的besh测试网络下载和IO用到的
 get_opsy() {
@@ -134,7 +134,8 @@ up=$( awk '{a=$1/86400;b=($1%86400)/3600;c=($1%3600)/60;d=$1%60} {printf("%ddays
 opsy=$( get_opsy )
 arch=$( uname -m )
 lbit=$( getconf LONG_BIT )
-host=$( hostname )
+host=$hostp
+up=$( awk '{a=$1/86400;b=($1%86400)/3600;c=($1%3600)/60;d=$1%60} {printf("%ddays, %d:%d:%d\n",a,b,c,d)}' /proc/uptime )
 kern=$( uname -r )
 ipv6=$( wget -qO- -t1 -T2 ipv6.icanhazip.com )
 IP=$(curl -s ipip.net | awk -F ' ' '{print $2}' | awk -F '：' '{print $2}')
@@ -149,6 +150,7 @@ cd virt-what-1.12/
 ./configure
 make && make install
 vm=`virt-what`
+rm -rf virt-what*
 
 
 yum install -y mtr || { apt-get update;apt-get install -y mtr; } || { echo "mtr没安装成功，程序暂停";exit 1; }
@@ -171,6 +173,8 @@ echo "Arch:$arch ($lbit Bit)" | tee -a $logfilename
 echo "Kernel:$kern" | tee -a $logfilename
 echo "ip:$IP" | tee -a $logfilename
 echo "ipaddr:$IPaddr" | tee -a $logfilename
+echo "host:$hostp" | tee -a $logfilename
+echo "uptime:$up" | tee -a $logfilename
 echo "vm:$vm" | tee -a $logfilename
 echo "he:$he" | tee -a $logfilename
 echo -e "\n\n" | tee -a $logfilename
