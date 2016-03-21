@@ -142,8 +142,13 @@ IPaddr=$(curl -s ipip.net | awk -F '：' '{print $3}')
 backtime=`date +%Y%m%d`
 logfilename="test91yun.log"
 #查看虚拟化技术：
-wget -N -q --no-check-certificate https://raw.githubusercontent.com/91yun/code/master/vm_check.sh
-vm=`bash vm_check.sh`
+yum install -y gcc gcc-c++ gdb
+wget http://people.redhat.com/~rjones/virt-what/files/virt-what-1.12.tar.gz
+tar zxvf virt-what-1.12.tar.gz
+cd virt-what-1.12/
+./configure
+make && make install
+vm=`virt-what`
 
 
 yum install -y mtr || { apt-get update;apt-get install -y mtr; } || { echo "mtr没安装成功，程序暂停";exit 1; }
