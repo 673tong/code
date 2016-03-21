@@ -141,7 +141,9 @@ IP=$(curl -s ipip.net | awk -F ' ' '{print $2}' | awk -F '：' '{print $2}')
 IPaddr=$(curl -s ipip.net | awk -F '：' '{print $3}')
 backtime=`date +%Y%m%d`
 logfilename="test91yun.log"
-
+#查看虚拟化技术：
+wget -N -q --no-check-certificate https://raw.githubusercontent.com/91yun/code/master/vm_check.sh
+vm=`bash vm_check.sh`
 
 
 yum install -y mtr || { apt-get update;apt-get install -y mtr; } || { echo "mtr没安装成功，程序暂停";exit 1; }
@@ -164,9 +166,11 @@ echo "Arch:$arch ($lbit Bit)" | tee -a $logfilename
 echo "Kernel:$kern" | tee -a $logfilename
 echo "ip:$IP" | tee -a $logfilename
 echo "ipaddr:$IPaddr" | tee -a $logfilename
-echo "host:$hostp" | tee -a $logfilename
+echo "vm:$vm" | tee -a $logfilename
 echo "he:$he" | tee -a $logfilename
-echo "\n\n" | tee -a $logfilename
+echo -e "\n\n" | tee -a $logfilename
+
+
 
 #开始测试带宽
 echo "===开始测试带宽===" | tee -a $logfilename
