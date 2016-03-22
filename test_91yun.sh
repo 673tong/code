@@ -1,8 +1,9 @@
 #!/bin/bash
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 export PATH
-echo "服务器提供商（如果你希望分享测试结果建议填写，也可以直接回车忽略这个步骤）"
+echo "服务器提供商（host provider）[default:Enter]"
 read hostp
+echo "开始测试中，会需要点时间，请稍后"
 #===============================以下是各类要用到的函数========================================
 #teddey的besh测试网络下载和IO用到的
 get_opsy() {
