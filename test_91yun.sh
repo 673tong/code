@@ -157,6 +157,9 @@ rm -rf virt-what*
 yum install -y mtr || { apt-get update;apt-get install -y mtr; } || { echo "mtr没安装成功，程序暂停";exit 1; }
 yum -y install wget || {  apt-get update;apt-get install -y wget; } || { echo "wget没安装成功，程序暂停";exit 1; }
 yum -y install curl || { apt-get update;apt-get install -y curl; } || { echo "curl自动安装失败，请自行手动安装curl后再重新开始";exit 1; }
+yum -y install screen || { apt-get update;apt-get install -y screen; } || { echo "curl自动安装失败，请自行手动安装curl后再重新开始";exit 1; }
+
+screen -S test91yun
 
 #覆盖已有文件
 echo "====开始记录测试信息====" > $logfilename
