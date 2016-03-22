@@ -151,6 +151,7 @@ cd virt-what-1.12/
 ./configure
 make && make install
 vm=`virt-what`
+cd ..
 rm -rf virt-what*
 
 
