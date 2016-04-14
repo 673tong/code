@@ -3,7 +3,7 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
 export PATH
 echo "服务器提供商（host provider）[default:Enter]"
 read hostp
-echo "开始测试中，会需要点时间，请稍候"
+echo "开始测试中，会需要点时间，请稍后"
 #===============================以下是各类要用到的函数========================================
 #teddey的besh测试网络下载和IO用到的
 get_opsy() {
@@ -140,21 +140,7 @@ up=$( awk '{a=$1/86400;b=($1%86400)/3600;c=($1%3600)/60;d=$1%60} {printf("%ddays
 kern=$( uname -r )
 ipv6=$( wget -qO- -t1 -T2 ipv6.icanhazip.com )
 IP=$(curl -s ipip.net | awk -F ' ' '{print $2}' | awk -F '：' '{print $2}')
-if [ "$IP" == "" ]; then
-	IP=$(curl -s ip.cn | awk -F ' ' '{print $2}' | awk -F '：' '{print $2}')
-fi
-if [ "$IP" == "" ]; then
-	echo "取不到ip地址，请手动输入（please input this server IP):"
-	read IP
-fi
-if [ "$IP" == "" ]; then
-	echo "取不到ip地址，测试无法继续。"
-	exit 1
-fi	
 IPaddr=$(curl -s ipip.net | awk -F '：' '{print $3}')
-if [ "$IPaddr" == "" ]; then
-	IPaddr=$(curl -s ip.cn | awk -F '：' '{print $3}')
-fi
 backtime=`date +%Y%m%d`
 logfilename="test91yun.log"
 #查看虚拟化技术：
@@ -190,6 +176,7 @@ echo "Kernel:$kern" | tee -a $logfilename
 echo "ip:$IP" | tee -a $logfilename
 echo "ipaddr:$IPaddr" | tee -a $logfilename
 echo "host:$hostp" | tee -a $logfilename
+echo "uptime:$up" | tee -a $logfilename
 echo "vm:$vm" | tee -a $logfilename
 echo "he:$he" | tee -a $logfilename
 echo -e "\n\n" | tee -a $logfilename
@@ -213,12 +200,12 @@ if  [ -e '/usr/bin/wget' ]; then
     speed && next
 	echo -e "===end ipv4 download===\n\n" >> $logfilename
 
-    # if [[ "$ipv6" != "" ]]; then
-        # echo -e "Node Name\t\t\tIPv6 address\t\tDownload Speed" | tee -a $logfilename
-	# echo "===star ipv6 download===" >> $logfilename		
-        # speed_v6 && next
-    # fi
-	# echo -e "===end ipv6 download===\n\n" >> $logfilename
+    if [[ "$ipv6" != "" ]]; then
+        echo -e "Node Name\t\t\tIPv6 address\t\tDownload Speed" | tee -a $logfilename
+	echo "===star ipv6 download===" >> $logfilename		
+        speed_v6 && next
+    fi
+	echo -e "===end ipv6 download===\n\n" >> $logfilename
 else
     echo "Error: wget command not found. You must be install wget command at first."
     exit 1
