@@ -139,8 +139,8 @@ host=$hostp
 up=$( awk '{a=$1/86400;b=($1%86400)/3600;c=($1%3600)/60;d=$1%60} {printf("%ddays, %d:%d:%d\n",a,b,c,d)}' /proc/uptime )
 kern=$( uname -r )
 ipv6=$( wget -qO- -t1 -T2 ipv6.icanhazip.com )
-IP=$(curl -s ipip.net | awk -F ' ' '{print $2}' | awk -F '：' '{print $2}')
-IPaddr=$(curl -s ipip.net | awk -F '：' '{print $3}')
+IP=$(curl -s myip.ipip.net | awk -F ' ' '{print $2}' | awk -F '：' '{print $2}')
+IPaddr=$(curl -s myip.ipip.net | awk -F '：' '{print $3}')
 backtime=`date +%Y%m%d`
 logfilename="test91yun.log"
 #查看虚拟化技术：
