@@ -141,6 +141,10 @@ kern=$( uname -r )
 ipv6=$( wget -qO- -t1 -T2 ipv6.icanhazip.com )
 IP=$(curl -s myip.ipip.net | awk -F ' ' '{print $2}' | awk -F '：' '{print $2}')
 IPaddr=$(curl -s myip.ipip.net | awk -F '：' '{print $3}')
+if [ "$IP" == "" ]; then
+	IP=$(curl -s ip.cn | awk -F ' ' '{print $2}' | awk -F '：' '{print $2}')
+	IPaddr=$(curl -s ip.cn | awk -F '：' '{print $3}')	
+fi
 backtime=`date +%Y%m%d`
 logfilename="test91yun.log"
 #查看虚拟化技术：
@@ -245,5 +249,5 @@ pingtest $IP
 
 #上传文件
 resultstr=$(curl -s -T $logfilename "http://test.91yun.org/logfileupload.php")
-echo -e $resultstr
+echo -e $resultstr | tee -a $logfilename
 
