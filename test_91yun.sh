@@ -204,12 +204,12 @@ if  [ -e '/usr/bin/wget' ]; then
     speed && next
 	echo -e "===end ipv4 download===\n\n" >> $logfilename
 
-    if [[ "$ipv6" != "" ]]; then
-        echo -e "Node Name\t\t\tIPv6 address\t\tDownload Speed" | tee -a $logfilename
-	echo "===star ipv6 download===" >> $logfilename		
-        speed_v6 && next
-    fi
-	echo -e "===end ipv6 download===\n\n" >> $logfilename
+    # if [[ "$ipv6" != "" ]]; then
+        # echo -e "Node Name\t\t\tIPv6 address\t\tDownload Speed" | tee -a $logfilename
+	# echo "===star ipv6 download===" >> $logfilename		
+        # speed_v6 && next
+    # fi
+	# echo -e "===end ipv6 download===\n\n" >> $logfilename
 else
     echo "Error: wget command not found. You must be install wget command at first."
     exit 1
