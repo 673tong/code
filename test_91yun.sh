@@ -129,9 +129,9 @@ pingtest(){
 #参数2,描述
 testping()
 {
-	echo "===start testing $2 ping===" | tee -a $logfilename
+	echo "{start testing $2 ping}" | tee -a $logfilename
 	ping -c 10 $1 | tee -a $logfilename
-	echo "===end testing===" | tee -a $logfilename
+	echo "{end testing}" | tee -a $logfilename
 }
 #==========================自用函数结束========================================
 
