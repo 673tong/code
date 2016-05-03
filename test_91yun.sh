@@ -123,6 +123,16 @@ pingtest(){
 	echo "===进行全国PING测试结束===" | tee -a $logfilename
 	
 }
+
+#测试跳板ping
+#参数1,ping的地址
+#参数2,描述
+testping()
+{
+	echo "{start testing $2 ping}" | tee -a $logfilename
+	ping -c 10 $1 | tee -a $logfilename
+	echo "{end testing}" | tee -a $logfilename
+}
 #==========================自用函数结束========================================
 
 #获取各种系统信息
@@ -246,6 +256,15 @@ mtrback "211.103.87.9" "天津移动"
 
 #开始进行PING测试
 pingtest $IP
+
+#开始测试跳板ping
+echo "===开始测试跳板ping===" >> $logfilename
+testping speedtest.tokyo.linode.com Linode日本
+testping hnd-jp-ping.vultr.com Vultr日本
+testping 192.157.214.6 Budgetvm洛杉矶
+testping downloadtest.kdatacenter.com kdatacenter韩国SK
+testping 210.92.18.1 星光韩国KT
+echo "===跳板ping测试结束===" >> $logfilename
 
 #上传文件
 resultstr=$(curl -s -T $logfilename "http://test.91yun.org/logfileupload.php")
